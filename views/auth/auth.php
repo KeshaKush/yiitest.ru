@@ -6,6 +6,7 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use yii\helpers\Url;
 
 $this->title = 'Авторизация';
 ?>
@@ -31,6 +32,6 @@ $this->title = 'Авторизация';
         </div>
     </div>
 <?php ActiveForm::end() ?>
-    <p>Нет учетной записи? <a href=<?php echo Url::to(['site/signup']);?>>Зарегистрироваться</a></p>
+    <p>Нет учетной записи? <a href=<?php echo Url::to(['auth/signup']);?>>Зарегистрироваться</a></p>
 
 </div>

@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use app\assets\AppAsset;
+use yii\helpers\Url;
 
 AppAsset::register($this);
 ?>
@@ -112,7 +113,6 @@ AppAsset::register($this);
                                <li><a href=<?php echo Url::to(['site/index']);?>>Главная</a></li>
                                <li><a href=<?php echo Url::to(['feed/index']);?>>Лента</a></li>
                                <li><a href="<?php echo Url::to(['auth/index']);?>">Войти</a></li>
-                               <li><a href=<?php echo Url::to(['site/signup']);?>>Зарегистрироваться</a></li>
                             </ul>
                             
                           <p>© Copyright 2016 DevBlog. All rights reserved</p>
