@@ -10,6 +10,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Feed;
+use app\models\Images;
 use yii\web\Controller;
 use yii\data\Pagination;
 use yii\filters\VerbFilter;
@@ -86,7 +87,10 @@ class FeedController extends Controller {
     public function actionShow() {
         $id = Yii::$app->request->get('id');
         $data = Feed::findOne($id);
-        return $this->render('single', compact('data'));
+        $images = Images::find()->where(['post' => $id])->asArray()->all();
+        $auth = \app\models\User::findIdentity($data->author);
+        
+        return $this->render('single', compact('data','auth','images'));
     }
     
 }

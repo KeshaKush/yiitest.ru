@@ -7,14 +7,17 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
-use app\models\LoginForm;
+use app\models\AuthForm;
 use app\models\ContactForm;
+use yii\data\Pagination;
+
 
 class SiteController extends Controller
 {
     /**
      * {@inheritdoc}
      */
+
     public function behaviors()
     {
         return [
@@ -22,6 +25,11 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'only' => ['logout'],
                 'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['login', 'signup'],
+                        'roles' => ['?'],
+                    ],
                     [
                         'actions' => ['logout'],
                         'allow' => true,
@@ -34,7 +42,7 @@ class SiteController extends Controller
                 'actions' => [
                     'logout' => ['post'],
                 ],
-            ],
+            ]
         ];
     }
 
@@ -61,6 +69,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+
         return $this->render('index');
     }
 
@@ -75,13 +84,13 @@ class SiteController extends Controller
             return $this->goHome();
         }
 
-        $model = new LoginForm();
+        $model = new AuthForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         }
 
         $model->password = '';
-        return $this->render('login', [
+        return $this->render('auth', [
             'model' => $model,
         ]);
     }
@@ -125,4 +134,39 @@ class SiteController extends Controller
     {
         return $this->render('about');
     }
+
+    public function actionFeed()
+        {
+            $query = Feed::find()->orderBy(['id' => SORT_DESC]);
+            $countQuery = clone $query;
+            $pages = new Pagination([
+                                        'totalCount' => $countQuery->count(),
+                                        'pageSize' => 2,
+                                        'pageSizeParam' => false,
+                                        'forcePageParam' => false
+                ]);
+            $data = $query->offset($pages->offset)
+                ->limit($pages->limit)
+                ->all();
+
+            return $this->render('feed', [
+                 'data' => $data,
+                 'pages' => $pages,
+            ]);
+        }
+    
+//    public function actionFeed()
+//    {
+//        $page = Yii::$app->request->get('page');
+//        $data = Feed::find()->orderBy(['id' => SORT_DESC])->all();
+//        return $this->render('feed', compact('data'));
+//    }
+
+    public function actionSingle()
+    {
+        $id = Yii::$app->request->get('id');
+        $data = Feed::findOne($id);
+        return $this->render('single', compact('data'));
+    }
+
 }

@@ -7,9 +7,10 @@
  */
 
 namespace app\controllers;
-
+use Yii;
 use yii\web\Controller;
 use app\models\CreateNewsForm;
+use yii\web\UploadedFile;
 /**
  * Description of CreateController
  *
@@ -19,8 +20,20 @@ class CreateController extends Controller{
     
     public function actionNew() {
         $model = new CreateNewsForm();
+        if ($model->load(Yii::$app->request->post())) {
+            $model->images = UploadedFile::getInstances($model, 'images');
+            if($model -> upload()){              
+                if($model -> saveNews()){
+                    if($model-> saveImages()){
+                        return $this->goHome();
+                    }
+                }
+            }
+            //return $this->goHome();
+        }
+        
         return $this->render('new', [
-            'model' => $model,
+            'model' => $model
         ]);
     }
     

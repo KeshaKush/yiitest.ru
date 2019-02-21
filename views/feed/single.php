@@ -1,38 +1,52 @@
 <?php
 
-/* @var $this yii\web\View */
+use slavkovrn\imagegalary\ImageGalaryWidget;
 
 $this->title = 'Страница новости';
 ?>
 <div class="col-md-12 content-page">
   <div class="col-md-12 blog-post">
-
     
     <!-- Post Headline Start -->
     <div class="post-title">
-      <h1>How to make your company website based on bootstrap framework on localhost?</h1> 
+      <h1><?php echo $data -> title; ?></h1> 
     </div>
        <!-- Post Headline End -->
         
         
     <!-- Post Detail Start -->
     <div class="post-info">
-      <span>November 23, 2016 / by <a href="#" target="_blank">Alex Parker</a></span>
+      <span><?php echo $data -> date.' / by '.$auth -> username; ?></span>
     </div>
        <!-- Post Detail End -->
         
         
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin at quam at orci commodo hendrerit vitae nec eros. Vestibulum neque est, imperdiet nec tortor nec, tempor semper metus. <b>Cras vel tempus velit</b>, et accumsan nisi. Duis laoreet pretium ultricies. Curabitur rhoncus auctor nunc congue sodales. Sed posuere nisi ipsum, eget dignissim nunc dapibus eget. Aenean elementum <b><a href="javascript:void(0)" data-toggle="popover" data-placement="top" data-content="You can write any text here">Click me</a></b> sollicitudin sapien ut sapien fermentum aliquet mollis. Curabitur ac quam orci sodales quam ut tempor. <b data-toggle="tooltip" data-placement="top" title="You can write any text here.">Hover me</b> suspendisse, gravida in augue in, interdum bibendum dui. Suspendisse sit amet justo sit amet diam fringilla commodo. Praesent ac magna at metus malesuada tincidunt non ac arcu. Nunc gravida eu felis vel elementum. Vestibulum sodales quam ut tempor tempor. Donec sollicitudin sapien ut sapien fermentum, non ultricies nulla gravida.</p>
+    <p>
+      
+      <?php echo $data -> text; ?>
+
+    </p>
         
     
-    <!-- Post Image Start -->
+    <!-- Post Gallery -->
     <div class="post-image margin-top-40 margin-bottom-40">
-      <img src="images/blog/1.jpg" alt="">
-      <p>Image source from <a href="#" target="_blank">Link</a></p>                                      
+      <?php
+      if($images != []){
+        echo ImageGalaryWidget::widget([
+          'id' =>'imagegalary',       // id of plugin should be unique at page
+          'class' =>'imagegalary',    // class of div to define style
+          'css' => 'border:white;',   // css commands of class (for example - border-radius:5px;)
+          'image_width' => '640px',       // height of image visible in pixels
+          'image_height' => '400px',      // width of image visible in pixels
+          'thumb_width' => 160,        // height of thumb images in pixels
+          'thumb_height' => 100,       // width of thumb images in pixels
+          'items' => 5,               // number of thumb items
+          'images' => $images         // images of galary
+
+        ]);    
+    }
+      ?>                                  
     </div>
-      <!-- Post Image End -->
-      
-      
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin at quam at orci commodo hendrerit vitae nec eros. Vestibulum neque est, imperdiet nec tortor nec, tempor semper metus. Cras vel tempus velit, et accumsan nisi. Duis laoreet pretium ultricies. Curabitur rhoncus auctor nunc congue sodale Sed posuere nisi ipsum.</p>
+      <!-- Post Gallery -->
   </div>
 </div>

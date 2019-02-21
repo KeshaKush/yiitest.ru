@@ -8,4 +8,9 @@ class News extends ActiveRecord{
     public static function tableName(){
 		return 'news';
 	}
+        
+    
+    public function getId(){
+        return $this -> id;
+    }
 }
