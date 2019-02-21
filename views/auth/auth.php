@@ -31,6 +31,6 @@ $this->title = 'Авторизация';
         </div>
     </div>
 <?php ActiveForm::end() ?>
-    
+    <p>Нет учетной записи? <a href=<?php echo Url::to(['site/signup']);?>>Зарегистрироваться</a></p>
 
 </div>

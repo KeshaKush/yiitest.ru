@@ -1,13 +1,8 @@
 <?php
 
-/* @var $this \yii\web\View */
-/* @var $content string */
-
-use app\widgets\Alert;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
-use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
 AppAsset::register($this);
@@ -114,10 +109,10 @@ AppAsset::register($this);
                        <div class="col-md-12 page-body margin-top-50 footer">
                           <footer>
                           <ul class="menu-link">
-                               <li><a href="index.html">Home</a></li>
-                               <li><a href="about.html">About</a></li>
-                               <li><a href="work.html">Work</a></li>
-                               <li><a href="contact.html">Contact</a></li>
+                               <li><a href=<?php echo Url::to(['site/index']);?>>Главная</a></li>
+                               <li><a href=<?php echo Url::to(['feed/index']);?>>Лента</a></li>
+                               <li><a href="<?php echo Url::to(['auth/index']);?>">Войти</a></li>
+                               <li><a href=<?php echo Url::to(['site/signup']);?>>Зарегистрироваться</a></li>
                             </ul>
                             
                           <p>© Copyright 2016 DevBlog. All rights reserved</p>

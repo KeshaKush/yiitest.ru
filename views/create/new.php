@@ -37,7 +37,10 @@ $this->title = 'Создание новости';
         ?>
    
         <?php echo $form->field($model, 'images[]')->fileInput(['multiple' => true, 'accept' => 'image/*'])->label("Изображения"); ?>
-    
-        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary']) ?>
+        <div class="form-group">
+            <div class="col-lg-offset-1 col-lg-11">
+                <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary']) ?>
+            </div>
+        </div>
     <?php ActiveForm::end(); ?>
 </div>
